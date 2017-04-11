@@ -41,7 +41,7 @@ enter cl command, when the version of Microsoft(R) C/C++ Optimizing Compiler oug
 4)build a DLL injector
 >cl inj.c
 
-Finally you built two DLLs, add.dll and new add.dll and two executables, mymain.exe and inj.c
+Finally you built two DLLs, add.dll and new add.dll and two executables, mymain.exe and inj.exe
 
 ## Usage
 
