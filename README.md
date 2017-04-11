@@ -63,23 +63,37 @@ This says the PID of  maymain.exe is 860.
 
 2-2) inject bug fix patch to mymain.exe
 > inj 860 newadd.dll
+
 Cross Injection id=860
+
 Wait for Remote Thread
+
 Remote Thread initialization completed
+
 
 When inj successed to inject newadd.dll to mymain.exe,
 the above message should be displayed.
 
 195:15+3=12
+
 196:15+3=12
+
 197:15+3=12
+
 198:15+3=12
+
 199:15+3=12
+
 200:15+3=18 <===== Bug Fixed without re-starting mymain.exe
+
 201:15+3=18
+
 202:15+3=18
+
 203:15+3=18
+
 204:15+3=18
+
 
 You might notice the interval of increment counter of mymain.exe.
 Sleep API is used in the loop of mymain.c. The newadd.dll overrides
