@@ -46,7 +46,8 @@ Finally, you built two DLLs, add.dll and new add.dll and two executables, mymain
 ## Usage
 
 1) invoke wrong calculator
->mymain.exe
+>mymain.exe  
+
 When you invoke mymain.exe, a wrong result calculation is repeated on your screen.
 This program won't terminate itself. You can enter Ctl+C to force to terminate.
 
@@ -55,6 +56,7 @@ This program won't terminate itself. You can enter Ctl+C to force to terminate.
 2-1) getting PID of mymain.exe
 Open another command prompt and operate fixing via this window. 
 >tasklist /FI "IMAGENAME eq my*"  
+
 IMAGE NAME                     PID SESSION NAME        SESSION#       MEMORY  
 ========================= ======== ================ =========== ============  
 mymain.exe                     860 Console                    1      1,608 K  
