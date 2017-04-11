@@ -3,12 +3,12 @@ An example for online patch by using of DLL injection
 ====
 
 ## Description
+The add.dll has a servere bug. It should add given two integers but it subtracts actually.
+The mymain.exe uses the add.dll and displays the wrong result of additional calculation repeatedly.
+However the mymain.exe is a mission critical process and you have to fix this bug without
+restarting mymain.exe. Is it possible to do such a thing?  
 
 This project should be built by the compiler of Visual Studio tools.
-The add.dll has a server bug. It should add given two integers but it subtracts.
-The mymain.exe uses the add.dll and displays wrong result of additional calculation.
-However the mymain.exe is a mission critical process and you should fix this bug without
-restarting mymain.exe. Is it possible to do this?
 
 ## Requirement
 Visual Studio tools
