@@ -5,10 +5,10 @@ int main(int arc,char **argv)
 {
 	T f;
 	HMODULE hm;
-	hm=LoadLibrary("sub.dll");
+	hm=LoadLibrary("add.dll");
 	if(hm==NULL){
 		printf("Load Error\n"); return 1;
 	}
-	f=(T)GetProcAddress(hm,"sub");
-	printf("sub=%d\n",f(5,3));
+	f=(T)GetProcAddress(hm,"myadd");
+	printf("add=%d\n",f(5,3));
 }
