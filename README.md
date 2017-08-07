@@ -55,7 +55,7 @@ This program won't terminate itself. You can enter Ctl+C to force to terminate.
 
 2-1) getting PID of main.exe
 Open another command prompt and operate fixing via this window. 
->tasklist /FI "IMAGENAME eq my*"  
+>tasklist /FI "IMAGENAME eq main.exe"  
 
 IMAGE NAME                     PID SESSION NAME        SESSION#       MEMORY  
 ========================= ======== ================ =========== ============  
