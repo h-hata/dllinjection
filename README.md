@@ -4,9 +4,9 @@ An example for online patch by using of DLL injection
 
 ## Description
 The add.dll has a servere bug. It should add given two integers but it subtracts actually.
-The mymain.exe uses the add.dll and displays the wrong result of additional calculation repeatedly.
-However the mymain.exe is a mission critical process and you have to fix this bug without
-restarting mymain.exe. Is it possible to do such a thing?  
+The main.exe uses the add.dll and displays the wrong result of additional calculation repeatedly.
+However the main.exe is a mission critical process and you have to fix this bug without
+restarting main.exe. Is it possible to do such a thing?  
 
 This project should be built by the compiler of Visual Studio tools.
 
@@ -30,9 +30,9 @@ enter cl command, when the version of Microsoft(R) C/C++ Optimizing Compiler oug
 
 >cl add.c /LD
 
-2)build a mymain.c which is a driver of add.dll
+2)build a main.c which is a driver of add.dll
 
->cl mymain.c add.lib
+>cl main.c add.lib
 
 3)build a bug fixed fixed DLL
 
@@ -41,35 +41,35 @@ enter cl command, when the version of Microsoft(R) C/C++ Optimizing Compiler oug
 4)build a DLL injector
 >cl inj.c
 
-Finally, you built two DLLs, add.dll and new add.dll and two executables, mymain.exe and inj.exe
+Finally, you built two DLLs, add.dll and new add.dll and two executables, main.exe and inj.exe
 
 ## Usage
 
 1) invoke wrong calculator
->mymain.exe  
+>main.exe  
 
-When you invoke mymain.exe, a wrong result calculation is repeated on your screen.
+When you invoke main.exe, a wrong result calculation is repeated on your screen.
 This program won't terminate itself. You can enter Ctl+C to force to terminate.
 
 2) Bug Fix
 
-2-1) getting PID of mymain.exe
+2-1) getting PID of main.exe
 Open another command prompt and operate fixing via this window. 
 >tasklist /FI "IMAGENAME eq my*"  
 
 IMAGE NAME                     PID SESSION NAME        SESSION#       MEMORY  
 ========================= ======== ================ =========== ============  
-mymain.exe                     860 Console                    1      1,608 K  
+main.exe                     860 Console                    1      1,608 K  
 
 This says the PID of  maymain.exe is 860.  
 
-2-2) inject bug fix patch to mymain.exe
+2-2) inject bug fix patch to main.exe
 > inj 860 newadd.dll  
 Cross Injection id=860  
 Wait for Remote Thread  
 Remote Thread initialization completed  
 
-When inj.exe successes to inject newadd.dll to mymain.exe,
+When inj.exe successes to inject newadd.dll to main.exe,
 the above message should be displayed.
 
 195:15+3=12  
@@ -77,16 +77,16 @@ the above message should be displayed.
 197:15+3=12  
 198:15+3=12  
 199:15+3=12  
-200:15+3=18 <===== Bug Fixed without re-starting mymain.exe  
+200:15+3=18 <===== Bug Fixed without re-starting main.exe  
 201:15+3=18  
 202:15+3=18  
 203:15+3=18  
 204:15+3=18  
 
-You might notice the interval of increment counter of mymain.exe.
-Sleep API is used in the loop of mymain.c. The newadd.dll overrides
+You might notice the interval of increment counter of main.exe.
+Sleep API is used in the loop of main.c. The newadd.dll overrides
 add function and Sleep API. After injection of this newadd.dll,
-when mymain.exe call Sleep API, the Sleep of the newadd.dll is invoked.
+when main.exe call Sleep API, the Sleep of the newadd.dll is invoked.
 The newadd.dll divides the input parameter by 2 of Sleep method and call
 the true Sleep of Win API and passes the half of the original parameter
 as the duration parameter. This means you can investigate API calls of 
