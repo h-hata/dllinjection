@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <stdio.h>
 
 DispError(){
 	LPVOID lpMsgBuf;
@@ -15,7 +16,7 @@ DispError(){
 
 
 static void inject(DWORD pid,char *fname){
-	HANDLE hp=NULL,ht=NULL;
+	HANDLE hp=NULL;
 	PWSTR remote_ptr=NULL;
 	int cch,cb;
 	PTHREAD_START_ROUTINE remote_start;
@@ -40,25 +41,9 @@ static void inject(DWORD pid,char *fname){
 			printf("WriteProcessMemory Error\n");
 			__leave;
 		}
-		remote_start=(PTHREAD_START_ROUTINE)GetProcAddress(
-			GetModuleHandleA("Kernel32"),"LoadLibraryA");
-		if(remote_start==NULL){
-			printf("GetProcess Address Error\n");
-			__leave;
-		}
-		ht=CreateRemoteThread(hp,NULL,0,remote_start,remote_ptr,0,NULL);
-		if(ht==NULL){
-			DispError();
-			printf("CreateRemoteThread Error\n");
-			__leave;
-		}
-		printf("Wait for Remote Thread\n");
-		WaitForSingleObject(ht,INFINITE);
-		printf("Remote Thread initialization completed\n");
+		printf("Write Memory completed ptr=%p\n",remote_ptr);
 	}
 	__finally{
-		if(remote_ptr) VirtualFreeEx(hp,remote_ptr,0,MEM_RELEASE);
-		if(ht)CloseHandle(ht);
 		if(hp)CloseHandle(hp);
 	}
 }

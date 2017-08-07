@@ -2,7 +2,7 @@
 #include <imagehlp.h>
 
 #pragma comment(lib,"imagehlp.lib")
-#define MODULE_NAME "mymain.exe"
+#define MODULE_NAME "main.exe"
 __declspec(dllexport) int newproc(int a,int b){
 	return a+b;
 }

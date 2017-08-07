@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <stdio.h>
 
 DispError(){
 	LPVOID lpMsgBuf;
@@ -14,11 +15,14 @@ DispError(){
 }
 
 
-static void inject(DWORD pid,char *fname){
-	HANDLE hp=NULL,ht=NULL;
-	PWSTR remote_ptr=NULL;
-	int cch,cb;
+static void cr(DWORD pid,char *param){
 	PTHREAD_START_ROUTINE remote_start;
+	HANDLE hp=NULL,ht=NULL;
+	int cch,cb;
+	if(sscanf(param,"%p",&remote_start)!=1){
+		return;
+	}
+	printf("Trying.. %p",remote_start);
 	__try{
 		SetLastError(NO_ERROR);	
 		hp=OpenProcess(
@@ -30,23 +34,7 @@ static void inject(DWORD pid,char *fname){
 			printf("Cannot OpenProcess\n");
 			__leave;
 		}
-		remote_ptr=(PWSTR)VirtualAllocEx(hp,NULL,strlen(fname)+1,
-			MEM_COMMIT,PAGE_READWRITE);
-		if(remote_ptr==NULL){
-			printf("VirtualAllocEx Error\n");
-			__leave;
-		}
-		if(!WriteProcessMemory(hp,remote_ptr,fname,strlen(fname)+1,NULL)){
-			printf("WriteProcessMemory Error\n");
-			__leave;
-		}
-		remote_start=(PTHREAD_START_ROUTINE)GetProcAddress(
-			GetModuleHandleA("Kernel32"),"LoadLibraryA");
-		if(remote_start==NULL){
-			printf("GetProcess Address Error\n");
-			__leave;
-		}
-		ht=CreateRemoteThread(hp,NULL,0,remote_start,remote_ptr,0,NULL);
+		ht=CreateRemoteThread(hp,NULL,0,remote_start,NULL,0,NULL);
 		if(ht==NULL){
 			DispError();
 			printf("CreateRemoteThread Error\n");
@@ -57,10 +45,10 @@ static void inject(DWORD pid,char *fname){
 		printf("Remote Thread initialization completed\n");
 	}
 	__finally{
-		if(remote_ptr) VirtualFreeEx(hp,remote_ptr,0,MEM_RELEASE);
 		if(ht)CloseHandle(ht);
 		if(hp)CloseHandle(hp);
 	}
+	printf("over\n");
 }
 int main(int argc,char **argv){
 	int id;
@@ -74,7 +62,7 @@ int main(int argc,char **argv){
 	}else{
 		printf("Cross Injection id=%d\n",id);
 	}
-	inject(id,argv[2]);
+	cr(id,argv[2]);
 	return 0;
 }
 		
