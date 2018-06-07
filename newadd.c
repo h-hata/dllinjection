@@ -2,7 +2,7 @@
 #include <imagehlp.h>
 
 #pragma comment(lib,"imagehlp.lib")
-#define MODULE_NAME "main.exe"
+#define MODULE_NAME "mymain.exe" //Fixed  2018/06/07 tnx edo_m18
 __declspec(dllexport) int newproc(int a,int b){
 	return a+b;
 }
