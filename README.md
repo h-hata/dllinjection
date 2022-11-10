@@ -32,7 +32,7 @@ enter cl command, when the version of Microsoft(R) C/C++ Optimizing Compiler oug
 
 2)build a main.c which is a driver of add.dll
 
->cl main.c add.lib
+>cl mymain.c add.lib
 
 3)build a bug fixed fixed DLL
 
@@ -46,7 +46,7 @@ Finally, you built two DLLs, add.dll and new add.dll and two executables, main.e
 ## Usage
 
 1) invoke wrong calculator
->main.exe  
+>mymain.exe  
 
 When you invoke main.exe, a wrong result calculation is repeated on your screen.
 This program won't terminate itself. You can enter Ctl+C to force to terminate.
@@ -59,7 +59,7 @@ Open another command prompt and operate fixing via this window.
 
 IMAGE NAME                     PID SESSION NAME        SESSION#       MEMORY  
 ========================= ======== ================ =========== ============  
-main.exe                     860 Console                    1      1,608 K  
+mymain.exe                     860 Console                    1      1,608 K  
 
 This says the PID of  maymain.exe is 860.  
 
