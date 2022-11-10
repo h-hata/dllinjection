@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <imagehlp.h>
+#include <stdio.h>
 
 #pragma comment(lib,"imagehlp.lib")
 #define MODULE_NAME "mymain.exe" //Fixed  2018/06/07 tnx edo_m18
